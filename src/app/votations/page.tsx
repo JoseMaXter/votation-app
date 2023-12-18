@@ -24,33 +24,39 @@ export default function Votations() {
    }, [])
 
    return (
-      <div className="mt-4 border border-gray-500">
-         <div className="flex justify-center p-4 items-center border-b bg-[#80CBC4] text-white border-gray-500">
-            <p className="w-1/5 text-center">Tipo de voto</p>
-            <p className="w-1/5 text-center">Usuario</p>
-            <p className="w-1/5 text-center">Cedúla</p>
-            <p className="w-1/5 text-center">Candidato</p>
-            <p className="w-1/5 text-center">Fecha</p>
+      <div>
+         <h2 className="font-medium text-xl my-6 text-center">
+            Resumen de <span className="text-[#80CBC4]">votaciónes</span>
+         </h2>
+
+         <div className="border border-[#80CBC4] border-dashed">
+            <div className="flex justify-center p-4 items-center border-b bg-[#80CBC4] text-white">
+               <p className="w-1/5 text-center">Tipo de voto</p>
+               <p className="w-1/5 text-center">Usuario</p>
+               <p className="w-1/5 text-center">Cedúla</p>
+               <p className="w-1/5 text-center">Candidato</p>
+               <p className="w-1/5 text-center">Fecha</p>
+            </div>
+            {votations?.map((votation, index) => {
+               const date = new Date(votation.Date)
+               return (
+                  <div
+                     className={`flex justify-center p-4 items-center border-b border-gray-200 ${
+                        index % 2 === 0 ? 'bg-gray-300 text-white' : ''
+                     }`}
+                     key={votation.Id}
+                  >
+                     <p className="w-1/5 text-center">{votation.VotationType}</p>
+                     <p className="w-1/5 text-center">{votation.UserName}</p>
+                     <p className="w-1/5 text-center">{votation.UserIdentity}</p>
+                     <p className="w-1/5 text-center">{votation.UserVotation}</p>
+                     <p className="w-1/5 text-center">{`${date.getFullYear()}-${
+                        date.getMonth() + 1
+                     }-${date.getDate()}`}</p>
+                  </div>
+               )
+            })}
          </div>
-         {votations?.map((votation, index) => {
-            const date = new Date(votation.Date)
-            return (
-               <div
-                  className={`flex justify-center p-4 items-center border-b border-gray-200 ${
-                     index % 2 === 0 ? 'bg-gray-500 text-white' : ''
-                  }`}
-                  key={votation.Id}
-               >
-                  <p className="w-1/5 text-center">{votation.VotationType}</p>
-                  <p className="w-1/5 text-center">{votation.UserName}</p>
-                  <p className="w-1/5 text-center">{votation.UserIdentity}</p>
-                  <p className="w-1/5 text-center">{votation.UserVotation}</p>
-                  <p className="w-1/5 text-center">{`${date.getFullYear()}-${
-                     date.getMonth() + 1
-                  }-${date.getDate()}`}</p>
-               </div>
-            )
-         })}
       </div>
    )
 }
